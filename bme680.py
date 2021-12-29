@@ -104,6 +104,7 @@ try:
         hum_baseline))
 
     while True:
+        runcount = 0
         curr_time = time.time()
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas = sensor.data.gas_resistance
@@ -133,13 +134,13 @@ try:
 
             # Calculate air_quality_score.
             air_quality_score = hum_score + gas_score
-            runtime = start_time - curr_time
+            runcount = runcount + 1
             print('Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}'.format(
                 gas,
                 hum,
                 air_quality_score))
-            print(runtime)
-            if runtime == 0 or runtime % 30 == 0:
+            print(runcount)
+            if runcount == 0 or runcount % 30 == 0:
                 write_to_influx(air_quality_score, run_count, run_time)
 
             time.sleep(1)
