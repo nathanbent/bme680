@@ -8,7 +8,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 sensor_host_name = "RaspiTest"
 client = InfluxDBClient(url="http://10.0.0.12:8086", token="U_O0SpT05ZAqNcuorQme0oIfTbzN6XEpVzwno8wAd1nmSGUDF1k9gKr6yJwj_lwPcpwvq5zDH59qHOPZS3aPCg==")
 
-def write_to_influx(gas, run_count, run_time):
+def write_to_influx(air_quality_score, run_count, run_time):
     global sensor_host_name
     bme280_data = [
         {
@@ -17,7 +17,7 @@ def write_to_influx(gas, run_count, run_time):
                 "host": sensor_host_name
             },
             "fields": {
-                "gas": float(gas),
+                "gas": float(air_quality_score),
                 "readruncount": float(run_count),
                 "readruntime": float(run_time)
             }
@@ -87,6 +87,7 @@ try:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas = sensor.data.gas_resistance
             burn_in_data.append(gas)
+            temperature = sen
             print('Gas: {0} Ohms'.format(gas))
             time.sleep(1)
 
@@ -142,7 +143,7 @@ try:
 
             time.sleep(1)
         if runtime == 0 or runtime%30==0:
-            write_to_influx(gas, run_count, run_time)
+            write_to_influx(air_quality_score, run_count, run_time)
 
 
 except KeyboardInterrupt:
