@@ -140,7 +140,7 @@ try:
                 hum,
                 air_quality_score))
             print(run_count)
-            if runcount == 0 or runcount % 30 == 0:
+            if run_count == 0 or run_count % 30 == 0:
                 write_aq_to_influx(air_quality_score, run_count, run_time)
             time.sleep(1)
             run_count = run_count + 1
