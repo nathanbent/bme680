@@ -6,7 +6,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 sensor_host_name = "RaspiTest"
-client = InfluxDBClient(url="http://10.0.0.12:8086", token=token)
+client = InfluxDBClient(url="http://10.0.0.12:8086", token="U_O0SpT05ZAqNcuorQme0oIfTbzN6XEpVzwno8wAd1nmSGUDF1k9gKr6yJwj_lwPcpwvq5zDH59qHOPZS3aPCg==")
 
 def write_to_influx(gas, run_count, run_time):
     global sensor_host_name
