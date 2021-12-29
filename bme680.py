@@ -71,6 +71,7 @@ sensor.select_gas_heater_profile(0)
 # start_time and curr_time ensure that the
 # burn_in_time (in seconds) is kept track of.
 
+runcount = 0
 start_time = time.time()
 curr_time = time.time()
 burn_in_time = 300
@@ -104,7 +105,6 @@ try:
         hum_baseline))
 
     while True:
-        runcount = 0
         curr_time = time.time()
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas = sensor.data.gas_resistance
@@ -134,7 +134,6 @@ try:
 
             # Calculate air_quality_score.
             air_quality_score = hum_score + gas_score
-            runcount = runcount + 1
             runtime = curr_time - start_time
             print('Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}'.format(
                 gas,
@@ -143,8 +142,8 @@ try:
             print(runcount)
             if runcount == 0 or runcount % 30 == 0:
                 write_to_influx(air_quality_score, run_count, run_time)
-
             time.sleep(1)
+            runcount = runcount + 1
 
 
 
