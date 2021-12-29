@@ -135,6 +135,7 @@ try:
             # Calculate air_quality_score.
             air_quality_score = hum_score + gas_score
             runcount = runcount + 1
+            runtime = curr_time - start_time
             print('Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}'.format(
                 gas,
                 hum,
