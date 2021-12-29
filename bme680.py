@@ -138,11 +138,11 @@ try:
                 gas,
                 hum,
                 air_quality_score))
-            runtime = curr_time - start_time
+            if runtime == 0 or runtime % 30 == 0:
+                write_to_influx(air_quality_score, run_count, run_time)
 
             time.sleep(1)
-        if runtime == 0 or runtime%30==0:
-            write_to_influx(air_quality_score, run_count, run_time)
+
 
 
 except KeyboardInterrupt:
