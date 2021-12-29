@@ -87,7 +87,6 @@ try:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas = sensor.data.gas_resistance
             burn_in_data.append(gas)
-            temperature = sen
             print('Gas: {0} Ohms'.format(gas))
             time.sleep(1)
 
